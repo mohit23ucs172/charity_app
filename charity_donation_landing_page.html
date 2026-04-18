@@ -1,0 +1,205 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;color:var(--color-text-primary);background:transparent}
+.hero{background:linear-gradient(135deg,#0a2a1a 0%,#1a4a2e 60%,#0d3320 100%);padding:3rem 2rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.03)}
+.hero::after{content:'';position:absolute;bottom:-60px;left:-30px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.02)}
+.badge{display:inline-block;background:rgba(29,158,117,0.25);color:#5DCAA5;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;border:1px solid rgba(93,202,165,0.3);margin-bottom:1.2rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:1rem;position:relative;z-index:1}
+.hero h1 span{color:#5DCAA5}
+.hero p{color:rgba(255,255,255,0.7);font-size:1rem;max-width:480px;margin:0 auto 2rem;line-height:1.7;position:relative;z-index:1}
+.stats{display:flex;justify-content:center;gap:2rem;margin-bottom:2rem;position:relative;z-index:1}
+.stat{text-align:center}
+.stat-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#fff}
+.stat-label{font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px}
+.stat-div{width:1px;background:rgba(255,255,255,0.15);align-self:stretch}
+.donate-btn{background:#1D9E75;color:#fff;border:none;padding:1rem 2.5rem;border-radius:50px;font-size:1rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s,transform 0.1s;position:relative;z-index:1}
+.donate-btn:hover{background:#0F6E56;transform:translateY(-1px)}
+.section{padding:2rem}
+.section-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:1.5rem;color:var(--color-text-primary)}
+.stories{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
+.story-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;border-left:3px solid #1D9E75}
+.story-icon{font-size:22px;margin-bottom:0.6rem}
+.story-card h3{font-size:0.95rem;font-weight:500;margin-bottom:0.4rem;color:var(--color-text-primary)}
+.story-card p{font-size:0.82rem;color:var(--color-text-secondary);line-height:1.6}
+.amount-section{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.5rem;margin-bottom:2rem}
+.amount-section h3{font-size:0.9rem;font-weight:500;color:var(--color-text-secondary);margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.5px}
+.amounts{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:1rem}
+.amt-btn{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:0.5rem 1rem;font-size:0.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--color-text-primary);transition:all 0.15s}
+.amt-btn:hover,.amt-btn.active{background:#1D9E75;color:#fff;border-color:#1D9E75}
+.custom-input{display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem}
+.custom-input span{font-size:1rem;color:var(--color-text-secondary)}
+.custom-input input{flex:1;padding:0.6rem 0.8rem;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);color:var(--color-text-primary);font-size:0.9rem;font-family:'DM Sans',sans-serif}
+.progress-section{margin-bottom:2rem}
+.progress-meta{display:flex;justify-content:space-between;margin-bottom:0.6rem;font-size:0.85rem}
+.progress-meta strong{font-size:1.1rem;font-family:'Playfair Display',serif}
+.progress-bar{background:var(--color-border-tertiary);border-radius:50px;height:8px;overflow:hidden}
+.progress-fill{background:#1D9E75;height:100%;width:62%;border-radius:50px}
+.progress-caption{font-size:0.78rem;color:var(--color-text-secondary);margin-top:0.5rem}
+.big-donate-btn{width:100%;background:#1D9E75;color:#fff;border:none;padding:1rem;border-radius:50px;font-size:1rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s}
+.big-donate-btn:hover{background:#0F6E56}
+.trust{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;padding:1rem 2rem;border-top:0.5px solid var(--color-border-tertiary)}
+.trust-item{font-size:0.78rem;color:var(--color-text-secondary);display:flex;align-items:center;gap:5px}
+.trust-dot{width:6px;height:6px;background:#1D9E75;border-radius:50%}
+.modal-bg{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:100;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--color-background-primary);border-radius:var(--border-radius-lg);padding:2rem;width:92%;max-width:400px;border:0.5px solid var(--color-border-tertiary)}
+.modal h2{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:0.3rem}
+.modal .sub{font-size:0.85rem;color:var(--color-text-secondary);margin-bottom:1.5rem}
+.modal label{font-size:0.82rem;color:var(--color-text-secondary);display:block;margin-bottom:0.3rem;margin-top:0.8rem}
+.modal input{width:100%;padding:0.6rem 0.8rem;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-primary);font-size:0.9rem;font-family:'DM Sans',sans-serif}
+.card-row{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem}
+.pay-btn{width:100%;background:#1D9E75;color:#fff;border:none;padding:0.85rem;border-radius:50px;font-size:0.95rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:1.2rem;transition:background 0.2s}
+.pay-btn:hover{background:#0F6E56}
+.cancel-btn{width:100%;background:transparent;color:var(--color-text-secondary);border:none;padding:0.5rem;font-size:0.85rem;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:0.4rem}
+.thankyou{display:none;text-align:center;padding:3rem 2rem}
+.thankyou.open{display:block}
+.check-circle{width:64px;height:64px;background:#EAF3DE;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;font-size:28px}
+.thankyou h2{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:0.6rem;color:var(--color-text-primary)}
+.thankyou p{color:var(--color-text-secondary);font-size:0.9rem;line-height:1.7;max-width:340px;margin:0 auto 0.8rem}
+.whatsapp-note{background:#EAF3DE;border-radius:var(--border-radius-md);padding:0.8rem 1rem;font-size:0.82rem;color:#3B6D11;margin-top:1rem;max-width:320px;margin-left:auto;margin-right:auto}
+.main-content{}
+</style>
+
+<div class="main-content" id="mainContent">
+  <div class="hero">
+    <div class="badge">Non-profit campaign</div>
+    <h1>Every rupee plants<br>a <span>seed of hope</span></h1>
+    <p>Help us bring clean water, education, and meals to 10,000 children across rural India by December 2025.</p>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">₹31L</div>
+        <div class="stat-label">Raised</div>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat">
+        <div class="stat-num">4,820</div>
+        <div class="stat-label">Donors</div>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat">
+        <div class="stat-num">68%</div>
+        <div class="stat-label">Goal</div>
+      </div>
+    </div>
+    <button class="donate-btn" onclick="openModal()">Donate now</button>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Your impact in action</div>
+    <div class="stories">
+      <div class="story-card">
+        <div class="story-icon">💧</div>
+        <h3>Clean water for Sunita's village</h3>
+        <p>₹500 brings safe drinking water to a family of 5 for an entire month.</p>
+      </div>
+      <div class="story-card">
+        <div class="story-icon">📚</div>
+        <h3>School books for Rajan</h3>
+        <p>₹1,000 covers a full year of textbooks for one child in a rural school.</p>
+      </div>
+      <div class="story-card">
+        <div class="story-icon">🍱</div>
+        <h3>30 meals for a hungry child</h3>
+        <p>₹300 feeds a child nutritious meals for an entire month through our program.</p>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-meta">
+        <span>Campaign goal</span>
+        <strong>₹50,00,000</strong>
+      </div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <p class="progress-caption">₹31,20,000 raised of ₹50,00,000 — 68% complete. 38 days left.</p>
+    </div>
+
+    <div class="amount-section">
+      <h3>Choose your donation</h3>
+      <div class="amounts">
+        <button class="amt-btn" onclick="selectAmt(this,300)">₹300</button>
+        <button class="amt-btn active" onclick="selectAmt(this,500)">₹500</button>
+        <button class="amt-btn" onclick="selectAmt(this,1000)">₹1,000</button>
+        <button class="amt-btn" onclick="selectAmt(this,2500)">₹2,500</button>
+        <button class="amt-btn" onclick="selectAmt(this,5000)">₹5,000</button>
+      </div>
+      <div class="custom-input">
+        <span>₹</span>
+        <input type="number" id="customAmt" placeholder="Enter custom amount" oninput="clearActive()">
+      </div>
+      <button class="big-donate-btn" onclick="openModal()">Donate securely →</button>
+    </div>
+  </div>
+
+  <div class="trust">
+    <span class="trust-item"><span class="trust-dot"></span>SSL secured payment</span>
+    <span class="trust-item"><span class="trust-dot"></span>80G tax benefit</span>
+    <span class="trust-item"><span class="trust-dot"></span>Instant WhatsApp receipt</span>
+    <span class="trust-item"><span class="trust-dot"></span>Mailchimp confirmation</span>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h2>Complete your donation</h2>
+    <p class="sub">Amount: <strong id="displayAmt">₹500</strong> — You'll receive a WhatsApp + email confirmation instantly.</p>
+    <label>Full name</label>
+    <input type="text" placeholder="Mohit Tiwari">
+    <label>Email address</label>
+    <input type="email" placeholder="you@example.com">
+    <label>WhatsApp number</label>
+    <input type="tel" placeholder="+91 98765 43210">
+    <label>Card number</label>
+    <input type="text" placeholder="4242 4242 4242 4242">
+    <div class="card-row">
+      <div>
+        <label>Expiry</label>
+        <input type="text" placeholder="MM / YY">
+      </div>
+      <div>
+        <label>CVV</label>
+        <input type="text" placeholder="•••">
+      </div>
+    </div>
+    <button class="pay-btn" onclick="completeDonation()">Pay <span id="payAmt">₹500</span> securely</button>
+    <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
+<div class="thankyou" id="thankYou">
+  <div class="check-circle">✓</div>
+  <h2>Thank you for your kindness!</h2>
+  <p>Your donation of <strong id="confirmedAmt">₹500</strong> has been received. You are now part of a movement changing lives across India.</p>
+  <p style="font-size:0.82rem;color:var(--color-text-secondary)">A confirmation email has been sent via Mailchimp. Check your WhatsApp for your instant receipt.</p>
+  <div class="whatsapp-note">WhatsApp message sent — "Hi! Your ₹500 donation is confirmed. You're amazing. 🙏 — HopeForward Team"</div>
+</div>
+
+<script>
+let selectedAmt = 500;
+function selectAmt(btn,amt){
+  selectedAmt=amt;
+  document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('customAmt').value='';
+}
+function clearActive(){
+  document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('active'));
+  selectedAmt=parseInt(document.getElementById('customAmt').value)||500;
+}
+function openModal(){
+  const custom=document.getElementById('customAmt').value;
+  if(custom) selectedAmt=parseInt(custom)||500;
+  document.getElementById('displayAmt').textContent='₹'+selectedAmt.toLocaleString('en-IN');
+  document.getElementById('payAmt').textContent='₹'+selectedAmt.toLocaleString('en-IN');
+  document.getElementById('modalBg').classList.add('open');
+}
+function closeModal(){document.getElementById('modalBg').classList.remove('open')}
+function completeDonation(){
+  document.getElementById('modalBg').classList.remove('open');
+  document.getElementById('mainContent').style.display='none';
+  document.getElementById('confirmedAmt').textContent='₹'+selectedAmt.toLocaleString('en-IN');
+  document.getElementById('thankYou').classList.add('open');
+}
+</script>
