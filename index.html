@@ -1,188 +1,829 @@
-
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@400;500&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;color:var(--color-text-primary);background:transparent}
+  @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@400;500&display=swap");
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: "DM Sans", sans-serif;
+    color: var(--color-text-primary);
+    background: transparent;
+  }
 
-/* NAV */
-.nav{display:flex;gap:0;border-bottom:0.5px solid var(--color-border-tertiary);overflow-x:auto;background:var(--color-background-primary);position:sticky;top:0;z-index:50}
-.nav-btn{flex:1;min-width:80px;padding:0.7rem 0.5rem;font-size:0.72rem;font-weight:500;border:none;background:transparent;cursor:pointer;color:var(--color-text-secondary);font-family:'DM Sans',sans-serif;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap}
-.nav-btn.active{color:#1D9E75;border-bottom-color:#1D9E75}
-.nav-btn:hover{color:var(--color-text-primary)}
+  /* NAV */
+  .nav {
+    display: flex;
+    gap: 0;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    overflow-x: auto;
+    background: var(--color-background-primary);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    animation: slideDown 0.6s ease-out;
+  }
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  .nav-btn {
+    flex: 1;
+    min-width: 80px;
+    padding: 0.7rem 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    font-family: "DM Sans", sans-serif;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+  }
+  .nav-btn::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #1d9e75, #5dcaa5);
+    transition: width 0.3s ease;
+  }
+  .nav-btn.active::before {
+    width: 100%;
+  }
+  .nav-btn.active {
+    color: #1d9e75;
+  }
+  .nav-btn:hover {
+    color: var(--color-text-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .nav-btn:nth-child(1) {
+    animation: fadeInUp 0.5s ease 0.1s both;
+  }
+  .nav-btn:nth-child(2) {
+    animation: fadeInUp 0.5s ease 0.2s both;
+  }
+  .nav-btn:nth-child(3) {
+    animation: fadeInUp 0.5s ease 0.3s both;
+  }
+  .nav-btn:nth-child(4) {
+    animation: fadeInUp 0.5s ease 0.4s both;
+  }
+  .nav-btn:nth-child(5) {
+    animation: fadeInUp 0.5s ease 0.5s both;
+  }
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-/* PAGES */
-.page{display:none;animation:fadeIn 0.3s ease}
-.page.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  /* PAGES */
+  .page {
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  .page.active {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-/* HERO */
-.hero{background:linear-gradient(135deg,#0a2a1a 0%,#1a4a2e 60%,#0d3320 100%);padding:2.5rem 1.5rem;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.03)}
-.badge{display:inline-block;background:rgba(29,158,117,0.25);color:#5DCAA5;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;border:1px solid rgba(93,202,165,0.3);margin-bottom:1rem}
-.hero h1{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:0.8rem}
-.hero h1 span{color:#5DCAA5}
-.hero p{color:rgba(255,255,255,0.7);font-size:0.95rem;max-width:440px;margin:0 auto 1.5rem;line-height:1.7}
-.stats-row{display:flex;justify-content:center;gap:1.5rem;margin-bottom:1.5rem}
-.stat{text-align:center}
-.stat-num{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#fff}
-.stat-label{font-size:10px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px}
-.stat-div{width:1px;background:rgba(255,255,255,0.15)}
-.hero-btn{background:#1D9E75;color:#fff;border:none;padding:0.9rem 2rem;border-radius:50px;font-size:0.95rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
-.hero-btn:hover{background:#0F6E56;transform:translateY(-1px)}
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0a2a1a 0%, #1a4a2e 60%, #0d3320 100%);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(29, 158, 117, 0.25);
+    color: #5dcaa5;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(93, 202, 165, 0.3);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+  }
+  .hero h1 span {
+    color: #5dcaa5;
+  }
+  .hero p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    max-width: 440px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.7;
+  }
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-num {
+    font-family: "Playfair Display", serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .stat-label {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .stat-div {
+    width: 1px;
+    background: rgba(255, 255, 255, 0.15);
+  }
+  .hero-btn {
+    background: #1d9e75;
+    color: #fff;
+    border: none;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    transition: all 0.2s;
+  }
+  .hero-btn:hover {
+    background: #0f6e56;
+    transform: translateY(-1px);
+  }
 
-/* SECTION */
-.section{padding:1.5rem}
-.sec-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:1.2rem}
+  /* SECTION */
+  .section {
+    padding: 1.5rem;
+  }
+  .sec-title {
+    font-family: "Playfair Display", serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+  }
 
-/* PROGRESS */
-.prog-wrap{margin-bottom:1.5rem}
-.prog-meta{display:flex;justify-content:space-between;margin-bottom:0.5rem;font-size:0.85rem}
-.prog-meta strong{font-family:'Playfair Display',serif;font-size:1.1rem}
-.prog-bar{background:var(--color-border-tertiary);border-radius:50px;height:10px;overflow:hidden}
-.prog-fill{background:linear-gradient(90deg,#1D9E75,#5DCAA5);height:100%;border-radius:50px;width:0%;transition:width 1.5s cubic-bezier(0.4,0,0.2,1)}
-.prog-caption{font-size:0.78rem;color:var(--color-text-secondary);margin-top:0.4rem}
+  /* PROGRESS */
+  .prog-wrap {
+    margin-bottom: 1.5rem;
+  }
+  .prog-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+  }
+  .prog-meta strong {
+    font-family: "Playfair Display", serif;
+    font-size: 1.1rem;
+  }
+  .prog-bar {
+    background: var(--color-border-tertiary);
+    border-radius: 50px;
+    height: 10px;
+    overflow: hidden;
+  }
+  .prog-fill {
+    background: linear-gradient(90deg, #1d9e75, #5dcaa5);
+    height: 100%;
+    border-radius: 50px;
+    width: 0%;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .prog-caption {
+    font-size: 0.78rem;
+    color: var(--color-text-secondary);
+    margin-top: 0.4rem;
+  }
 
-/* AMOUNT PICKER */
-.amt-section{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.2rem;margin-bottom:1.2rem}
-.amt-section h3{font-size:0.8rem;font-weight:500;color:var(--color-text-secondary);margin-bottom:0.8rem;text-transform:uppercase;letter-spacing:0.5px}
-.amounts{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.8rem}
-.amt-btn{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:0.45rem 0.9rem;font-size:0.88rem;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--color-text-primary);transition:all 0.15s}
-.amt-btn:hover,.amt-btn.active{background:#1D9E75;color:#fff;border-color:#1D9E75}
-.custom-row{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.8rem}
-.custom-row span{font-size:1rem;color:var(--color-text-secondary)}
-.custom-row input{flex:1;padding:0.55rem 0.75rem;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);color:var(--color-text-primary);font-size:0.88rem;font-family:'DM Sans',sans-serif}
-.big-btn{width:100%;background:#1D9E75;color:#fff;border:none;padding:0.9rem;border-radius:50px;font-size:0.95rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s}
-.big-btn:hover{background:#0F6E56}
+  /* AMOUNT PICKER */
+  .amt-section {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-lg);
+    padding: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+  .amt-section h3 {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .amounts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+  .amt-btn {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-md);
+    padding: 0.45rem 0.9rem;
+    font-size: 0.88rem;
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    color: var(--color-text-primary);
+    transition: all 0.15s;
+  }
+  .amt-btn:hover,
+  .amt-btn.active {
+    background: #1d9e75;
+    color: #fff;
+    border-color: #1d9e75;
+  }
+  .custom-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+  .custom-row span {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+  }
+  .custom-row input {
+    flex: 1;
+    padding: 0.55rem 0.75rem;
+    border-radius: var(--border-radius-md);
+    border: 0.5px solid var(--color-border-tertiary);
+    background: var(--color-background-primary);
+    color: var(--color-text-primary);
+    font-size: 0.88rem;
+    font-family: "DM Sans", sans-serif;
+  }
+  .big-btn {
+    width: 100%;
+    background: #1d9e75;
+    color: #fff;
+    border: none;
+    padding: 0.9rem;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    transition: background 0.2s;
+  }
+  .big-btn:hover {
+    background: #0f6e56;
+  }
 
-/* STORIES */
-.stories{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.8rem;margin-bottom:1.5rem}
-.story-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem;border-left:3px solid #1D9E75}
-.story-icon{font-size:20px;margin-bottom:0.5rem}
-.story-card h3{font-size:0.88rem;font-weight:500;margin-bottom:0.3rem}
-.story-card p{font-size:0.78rem;color:var(--color-text-secondary);line-height:1.6}
+  /* STORIES */
+  .stories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .story-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1rem;
+    border-left: 3px solid #1d9e75;
+  }
+  .story-icon {
+    font-size: 20px;
+    margin-bottom: 0.5rem;
+  }
+  .story-card h3 {
+    font-size: 0.88rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+  .story-card p {
+    font-size: 0.78rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
 
-/* TRUST */
-.trust{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap;padding:1rem 1.5rem;border-top:0.5px solid var(--color-border-tertiary)}
-.trust-item{font-size:0.75rem;color:var(--color-text-secondary);display:flex;align-items:center;gap:4px}
-.trust-dot{width:5px;height:5px;background:#1D9E75;border-radius:50%;flex-shrink:0}
+  /* TRUST */
+  .trust {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    padding: 1rem 1.5rem;
+    border-top: 0.5px solid var(--color-border-tertiary);
+  }
+  .trust-item {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .trust-dot {
+    width: 5px;
+    height: 5px;
+    background: #1d9e75;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
 
-/* DONOR FEED */
-.donor-feed{display:flex;flex-direction:column;gap:0.6rem}
-.donor-item{display:flex;align-items:center;gap:0.8rem;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:0.75rem 1rem;animation:slideIn 0.4s ease}
-@keyframes slideIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
-.donor-avatar{width:36px;height:36px;border-radius:50%;background:#E1F5EE;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:#0F6E56;flex-shrink:0}
-.donor-info{flex:1}
-.donor-name{font-size:0.88rem;font-weight:500}
-.donor-time{font-size:0.75rem;color:var(--color-text-secondary)}
-.donor-amt{font-weight:500;color:#1D9E75;font-size:0.9rem}
-.live-badge{display:inline-block;background:#E1F5EE;color:#0F6E56;font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;margin-bottom:0.8rem}
+  /* DONOR FEED */
+  .donor-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .donor-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-md);
+    padding: 0.75rem 1rem;
+    animation: slideIn 0.4s ease;
+  }
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  .donor-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e1f5ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: #0f6e56;
+    flex-shrink: 0;
+  }
+  .donor-info {
+    flex: 1;
+  }
+  .donor-name {
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+  .donor-time {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+  }
+  .donor-amt {
+    font-weight: 500;
+    color: #1d9e75;
+    font-size: 0.9rem;
+  }
+  .live-badge {
+    display: inline-block;
+    background: #e1f5ee;
+    color: #0f6e56;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-bottom: 0.8rem;
+  }
 
-/* FAQ */
-.faq-item{border-bottom:0.5px solid var(--color-border-tertiary);padding:1rem 0}
-.faq-q{font-size:0.92rem;font-weight:500;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
-.faq-a{font-size:0.84rem;color:var(--color-text-secondary);line-height:1.7;margin-top:0.6rem;display:none}
-.faq-a.open{display:block}
-.faq-arrow{font-size:12px;color:var(--color-text-secondary);transition:transform 0.2s}
-.faq-arrow.open{transform:rotate(180deg)}
+  /* FAQ */
+  .faq-item {
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    padding: 1rem 0;
+  }
+  .faq-q {
+    font-size: 0.92rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .faq-a {
+    font-size: 0.84rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-top: 0.6rem;
+    display: none;
+  }
+  .faq-a.open {
+    display: block;
+  }
+  .faq-arrow {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    transition: transform 0.2s;
+  }
+  .faq-arrow.open {
+    transform: rotate(180deg);
+  }
 
-/* ABOUT */
-.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.8rem;margin-bottom:1.5rem}
-.team-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem;text-align:center}
-.team-avatar{width:48px;height:48px;border-radius:50%;background:#E1F5EE;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#0F6E56;margin:0 auto 0.6rem}
-.team-name{font-size:0.85rem;font-weight:500}
-.team-role{font-size:0.75rem;color:var(--color-text-secondary)}
-.mission-box{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.2rem;margin-bottom:1.2rem;border-left:3px solid #1D9E75}
-.mission-box p{font-size:0.88rem;line-height:1.7;color:var(--color-text-secondary)}
+  /* ABOUT */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .team-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1rem;
+    text-align: center;
+  }
+  .team-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #e1f5ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #0f6e56;
+    margin: 0 auto 0.6rem;
+  }
+  .team-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .team-role {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+  }
+  .mission-box {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-lg);
+    padding: 1.2rem;
+    margin-bottom: 1.2rem;
+    border-left: 3px solid #1d9e75;
+  }
+  .mission-box p {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+  }
+  .mission-box h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    margin-top: 1rem;
+    color: var(--color-text-primary);
+  }
+  .mission-box h4:first-child {
+    margin-top: 0;
+  }
 
-/* CONTACT */
-.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.8rem;margin-bottom:1.2rem}
-.contact-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem}
-.contact-icon{font-size:20px;margin-bottom:0.4rem}
-.contact-card h3{font-size:0.88rem;font-weight:500;margin-bottom:0.2rem}
-.contact-card p{font-size:0.8rem;color:var(--color-text-secondary)}
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+  }
+  .contact-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1rem;
+  }
+  .contact-icon {
+    font-size: 20px;
+    margin-bottom: 0.4rem;
+  }
+  .contact-card h3 {
+    font-size: 0.88rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+  .contact-card p {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+  }
 
-/* MODAL */
-.modal-bg{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.55);z-index:200;align-items:flex-start;justify-content:center;overflow-y:auto;padding:1rem}
-.modal-bg.open{display:flex}
-.modal{background:var(--color-background-primary);border-radius:var(--border-radius-lg);padding:1.5rem;width:100%;max-width:380px;border:0.5px solid var(--color-border-tertiary);margin:auto}
-.modal h2{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:0.2rem}
-.modal .sub{font-size:0.82rem;color:var(--color-text-secondary);margin-bottom:1.2rem}
-.modal label{font-size:0.78rem;color:var(--color-text-secondary);display:block;margin-bottom:0.25rem;margin-top:0.7rem}
-.modal input{width:100%;padding:0.55rem 0.75rem;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-primary);font-size:0.88rem;font-family:'DM Sans',sans-serif;transition:border-color 0.2s}
-.modal input.err{border-color:#E24B4A;background:#FCEBEB}
-.err-msg{font-size:0.72rem;color:#E24B4A;margin-top:0.2rem;display:none}
-.err-msg.show{display:block}
-.card-row{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem}
-.pay-btn{width:100%;background:#1D9E75;color:#fff;border:none;padding:0.8rem;border-radius:50px;font-size:0.9rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:1rem;transition:background 0.2s}
-.pay-btn:hover{background:#0F6E56}
-.cancel-btn{width:100%;background:transparent;color:var(--color-text-secondary);border:none;padding:0.4rem;font-size:0.82rem;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:0.3rem}
+  /* MODAL */
+  .modal-bg {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 200;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+  .modal-bg.open {
+    display: flex;
+  }
+  .modal {
+    background: var(--color-background-primary);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 380px;
+    border: 0.5px solid var(--color-border-tertiary);
+    margin: auto;
+  }
+  .modal h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+  }
+  .modal .sub {
+    font-size: 0.82rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.2rem;
+  }
+  .modal label {
+    font-size: 0.78rem;
+    color: var(--color-text-secondary);
+    display: block;
+    margin-bottom: 0.25rem;
+    margin-top: 0.7rem;
+  }
+  .modal input {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    border-radius: var(--border-radius-md);
+    border: 0.5px solid var(--color-border-tertiary);
+    background: var(--color-background-secondary);
+    color: var(--color-text-primary);
+    font-size: 0.88rem;
+    font-family: "DM Sans", sans-serif;
+    transition: border-color 0.2s;
+  }
+  .modal input.err {
+    border-color: #e24b4a;
+    background: #fcebeb;
+  }
+  .err-msg {
+    font-size: 0.72rem;
+    color: #e24b4a;
+    margin-top: 0.2rem;
+    display: none;
+  }
+  .err-msg.show {
+    display: block;
+  }
+  .card-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .pay-btn {
+    width: 100%;
+    background: #1d9e75;
+    color: #fff;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    margin-top: 1rem;
+    transition: background 0.2s;
+  }
+  .pay-btn:hover {
+    background: #0f6e56;
+  }
+  .cancel-btn {
+    width: 100%;
+    background: transparent;
+    color: var(--color-text-secondary);
+    border: none;
+    padding: 0.4rem;
+    font-size: 0.82rem;
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    margin-top: 0.3rem;
+  }
 
-/* THANK YOU */
-.thankyou{display:none;text-align:center;padding:3rem 1.5rem}
-.thankyou.open{display:block}
-.check-circle{width:60px;height:60px;background:#EAF3DE;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:26px;color:#3B6D11}
-.thankyou h2{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:0.5rem}
-.thankyou p{color:var(--color-text-secondary);font-size:0.88rem;line-height:1.7;max-width:320px;margin:0 auto 0.6rem}
-.wa-note{background:#EAF3DE;border-radius:var(--border-radius-md);padding:0.75rem 1rem;font-size:0.8rem;color:#3B6D11;margin-top:0.8rem;max-width:300px;margin-left:auto;margin-right:auto}
-.back-btn{margin-top:1.2rem;background:transparent;border:0.5px solid var(--color-border-tertiary);border-radius:50px;padding:0.6rem 1.5rem;font-size:0.85rem;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--color-text-primary)}
+  /* THANK YOU */
+  .thankyou {
+    display: none;
+    text-align: center;
+    padding: 3rem 1.5rem;
+  }
+  .thankyou.open {
+    display: block;
+  }
+  .check-circle {
+    width: 60px;
+    height: 60px;
+    background: #eaf3de;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 26px;
+    color: #3b6d11;
+  }
+  .thankyou h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .thankyou p {
+    color: var(--color-text-secondary);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    max-width: 320px;
+    margin: 0 auto 0.6rem;
+  }
+  .wa-note {
+    background: #eaf3de;
+    border-radius: var(--border-radius-md);
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+    color: #3b6d11;
+    margin-top: 0.8rem;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .back-btn {
+    margin-top: 1.2rem;
+    background: transparent;
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: 50px;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    color: var(--color-text-primary);
+  }
 </style>
 
-<h2 class="sr-only">HopeForward charity donation platform with 5 pages: Home, Campaigns, Donors, About, Contact</h2>
+<h2 class="sr-only">
+  HopeForward charity donation platform with 5 pages: Home, Campaigns, Donors,
+  About, Contact
+</h2>
 
 <nav class="nav">
-  <button class="nav-btn active" onclick="showPage('home',this)">Home</button>
-  <button class="nav-btn" onclick="showPage('campaigns',this)">Campaigns</button>
-  <button class="nav-btn" onclick="showPage('donors',this)">Donors</button>
-  <button class="nav-btn" onclick="showPage('about',this)">About</button>
-  <button class="nav-btn" onclick="showPage('contact',this)">Contact</button>
+  <button class="nav-btn active" onclick="showPage('home', this)">Home</button>
+  <button class="nav-btn" onclick="showPage('campaigns', this)">
+    Campaigns
+  </button>
+  <button class="nav-btn" onclick="showPage('donors', this)">Donors</button>
+  <button class="nav-btn" onclick="showPage('about', this)">About</button>
+  <button class="nav-btn" onclick="showPage('contact', this)">Contact</button>
 </nav>
 
 <!-- PAGE: HOME -->
 <div class="page active" id="page-home">
   <div class="hero">
     <div class="badge">Non-profit campaign</div>
-    <h1>Every rupee plants<br>a <span>seed of hope</span></h1>
-    <p>Help us bring clean water, education, and meals to 10,000 children across rural India.</p>
+    <h1>Every rupee plants<br />a <span>seed of hope</span></h1>
+    <p>
+      Help us bring clean water, education, and meals to 10,000 children across
+      rural India.
+    </p>
     <div class="stats-row">
-      <div class="stat"><div class="stat-num" id="raisedCount">₹0</div><div class="stat-label">Raised</div></div>
+      <div class="stat">
+        <div class="stat-num" id="raisedCount">₹0</div>
+        <div class="stat-label">Raised</div>
+      </div>
       <div class="stat-div"></div>
-      <div class="stat"><div class="stat-num" id="donorCount">0</div><div class="stat-label">Donors</div></div>
+      <div class="stat">
+        <div class="stat-num" id="donorCount">0</div>
+        <div class="stat-label">Donors</div>
+      </div>
       <div class="stat-div"></div>
-      <div class="stat"><div class="stat-num" id="pctCount">0%</div><div class="stat-label">Goal</div></div>
+      <div class="stat">
+        <div class="stat-num" id="pctCount">0%</div>
+        <div class="stat-label">Goal</div>
+      </div>
     </div>
     <button class="hero-btn" onclick="openModal()">Donate now →</button>
   </div>
   <div class="section">
     <div class="sec-title">Campaign progress</div>
     <div class="prog-wrap">
-      <div class="prog-meta"><span>Target: ₹50,00,000</span><strong id="progAmt">₹31,20,000</strong></div>
+      <div class="prog-meta">
+        <span>Target: ₹50,00,000</span><strong id="progAmt">₹31,20,000</strong>
+      </div>
       <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
       <p class="prog-caption" id="progCaption">Loading...</p>
     </div>
     <div class="sec-title">Your impact</div>
     <div class="stories">
-      <div class="story-card"><div class="story-icon">💧</div><h3>Clean water for Sunita</h3><p>₹500 brings safe water to a family for a month.</p></div>
-      <div class="story-card"><div class="story-icon">📚</div><h3>Books for Rajan</h3><p>₹1,000 covers a year of textbooks for one child.</p></div>
-      <div class="story-card"><div class="story-icon">🍱</div><h3>30 meals a month</h3><p>₹300 feeds a child nutritious meals for 30 days.</p></div>
+      <div class="story-card">
+        <div class="story-icon">💧</div>
+        <h3>Clean water for Sunita</h3>
+        <p>₹500 brings safe water to a family for a month.</p>
+      </div>
+      <div class="story-card">
+        <div class="story-icon">📚</div>
+        <h3>Books for Rajan</h3>
+        <p>₹1,000 covers a year of textbooks for one child.</p>
+      </div>
+      <div class="story-card">
+        <div class="story-icon">🍱</div>
+        <h3>30 meals a month</h3>
+        <p>₹300 feeds a child nutritious meals for 30 days.</p>
+      </div>
     </div>
     <div class="amt-section">
       <h3>Choose your donation</h3>
       <div class="amounts">
-        <button class="amt-btn" onclick="selectAmt(this,300)">₹300</button>
-        <button class="amt-btn active" onclick="selectAmt(this,500)">₹500</button>
-        <button class="amt-btn" onclick="selectAmt(this,1000)">₹1,000</button>
-        <button class="amt-btn" onclick="selectAmt(this,2500)">₹2,500</button>
-        <button class="amt-btn" onclick="selectAmt(this,5000)">₹5,000</button>
+        <button class="amt-btn" onclick="selectAmt(this, 300)">₹300</button>
+        <button class="amt-btn active" onclick="selectAmt(this, 500)">
+          ₹500
+        </button>
+        <button class="amt-btn" onclick="selectAmt(this, 1000)">₹1,000</button>
+        <button class="amt-btn" onclick="selectAmt(this, 2500)">₹2,500</button>
+        <button class="amt-btn" onclick="selectAmt(this, 5000)">₹5,000</button>
       </div>
-      <div class="custom-row"><span>₹</span><input type="number" id="customAmt" placeholder="Custom amount" oninput="clearActive()"></div>
+      <div class="custom-row">
+        <span>₹</span
+        ><input
+          type="number"
+          id="customAmt"
+          placeholder="Custom amount"
+          oninput="clearActive()"
+        />
+      </div>
       <button class="big-btn" onclick="openModal()">Donate securely →</button>
     </div>
   </div>
   <div class="trust">
     <span class="trust-item"><span class="trust-dot"></span>SSL secured</span>
-    <span class="trust-item"><span class="trust-dot"></span>80G tax benefit</span>
-    <span class="trust-item"><span class="trust-dot"></span>WhatsApp receipt</span>
-    <span class="trust-item"><span class="trust-dot"></span>Mailchimp email</span>
+    <span class="trust-item"
+      ><span class="trust-dot"></span>80G tax benefit</span
+    >
+    <span class="trust-item"
+      ><span class="trust-dot"></span>WhatsApp receipt</span
+    >
+    <span class="trust-item"
+      ><span class="trust-dot"></span>Mailchimp email</span
+    >
   </div>
 </div>
 
@@ -190,44 +831,227 @@ body{font-family:'DM Sans',sans-serif;color:var(--color-text-primary);background
 <div class="page" id="page-campaigns">
   <div class="section">
     <div class="sec-title">All campaigns</div>
-    <div style="display:flex;flex-direction:column;gap:1rem">
-      <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden">
-        <div style="background:linear-gradient(135deg,#0a2a1a,#1a4a2e);padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:center">
-          <span style="color:#5DCAA5;font-size:12px;font-weight:500">Water & Sanitation</span>
-          <span style="background:rgba(29,158,117,0.3);color:#5DCAA5;font-size:10px;padding:2px 8px;border-radius:10px">Active</span>
+    <div style="display: flex; flex-direction: column; gap: 1rem">
+      <div
+        style="
+          background: var(--color-background-primary);
+          border: 0.5px solid var(--color-border-tertiary);
+          border-radius: var(--border-radius-lg);
+          overflow: hidden;
+        "
+      >
+        <div
+          style="
+            background: linear-gradient(135deg, #0a2a1a, #1a4a2e);
+            padding: 1rem 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <span style="color: #5dcaa5; font-size: 12px; font-weight: 500"
+            >Water & Sanitation</span
+          >
+          <span
+            style="
+              background: rgba(29, 158, 117, 0.3);
+              color: #5dcaa5;
+              font-size: 10px;
+              padding: 2px 8px;
+              border-radius: 10px;
+            "
+            >Active</span
+          >
         </div>
-        <div style="padding:1rem 1.2rem">
-          <h3 style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:0.3rem">Clean Water For All</h3>
-          <p style="font-size:0.8rem;color:var(--color-text-secondary);margin-bottom:0.8rem;line-height:1.6">Bringing safe drinking water to 50 villages in Rajasthan and MP.</p>
-          <div class="prog-bar" style="margin-bottom:0.4rem"><div class="prog-fill" style="width:74%"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:var(--color-text-secondary);margin-bottom:0.8rem"><span>₹14.8L raised</span><span>74% of ₹20L</span></div>
-          <button class="big-btn" style="padding:0.6rem" onclick="openModal()">Donate to this →</button>
+        <div style="padding: 1rem 1.2rem">
+          <h3
+            style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              font-size: 1rem;
+              margin-bottom: 0.3rem;
+            "
+          >
+            Clean Water For All
+          </h3>
+          <p
+            style="
+              font-size: 0.8rem;
+              color: var(--color-text-secondary);
+              margin-bottom: 0.8rem;
+              line-height: 1.6;
+            "
+          >
+            Bringing safe drinking water to 50 villages in Rajasthan and MP.
+          </p>
+          <div class="prog-bar" style="margin-bottom: 0.4rem">
+            <div class="prog-fill" style="width: 74%"></div>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              font-size: 0.78rem;
+              color: var(--color-text-secondary);
+              margin-bottom: 0.8rem;
+            "
+          >
+            <span>₹14.8L raised</span><span>74% of ₹20L</span>
+          </div>
+          <button class="big-btn" style="padding: 0.6rem" onclick="openModal()">
+            Donate to this →
+          </button>
         </div>
       </div>
-      <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden">
-        <div style="background:linear-gradient(135deg,#1a2a0a,#2e4a1a);padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:center">
-          <span style="color:#97C459;font-size:12px;font-weight:500">Education</span>
-          <span style="background:rgba(99,153,34,0.3);color:#97C459;font-size:10px;padding:2px 8px;border-radius:10px">Active</span>
+      <div
+        style="
+          background: var(--color-background-primary);
+          border: 0.5px solid var(--color-border-tertiary);
+          border-radius: var(--border-radius-lg);
+          overflow: hidden;
+        "
+      >
+        <div
+          style="
+            background: linear-gradient(135deg, #1a2a0a, #2e4a1a);
+            padding: 1rem 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <span style="color: #97c459; font-size: 12px; font-weight: 500"
+            >Education</span
+          >
+          <span
+            style="
+              background: rgba(99, 153, 34, 0.3);
+              color: #97c459;
+              font-size: 10px;
+              padding: 2px 8px;
+              border-radius: 10px;
+            "
+            >Active</span
+          >
         </div>
-        <div style="padding:1rem 1.2rem">
-          <h3 style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:0.3rem">Books & Beyond</h3>
-          <p style="font-size:0.8rem;color:var(--color-text-secondary);margin-bottom:0.8rem;line-height:1.6">School supplies and digital tablets for 2,000 students in Bihar.</p>
-          <div class="prog-bar" style="margin-bottom:0.4rem"><div class="prog-fill" style="width:51%;background:linear-gradient(90deg,#639922,#97C459)"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:var(--color-text-secondary);margin-bottom:0.8rem"><span>₹7.65L raised</span><span>51% of ₹15L</span></div>
-          <button class="big-btn" style="padding:0.6rem" onclick="openModal()">Donate to this →</button>
+        <div style="padding: 1rem 1.2rem">
+          <h3
+            style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              font-size: 1rem;
+              margin-bottom: 0.3rem;
+            "
+          >
+            Books & Beyond
+          </h3>
+          <p
+            style="
+              font-size: 0.8rem;
+              color: var(--color-text-secondary);
+              margin-bottom: 0.8rem;
+              line-height: 1.6;
+            "
+          >
+            School supplies and digital tablets for 2,000 students in Bihar.
+          </p>
+          <div class="prog-bar" style="margin-bottom: 0.4rem">
+            <div
+              class="prog-fill"
+              style="
+                width: 51%;
+                background: linear-gradient(90deg, #639922, #97c459);
+              "
+            ></div>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              font-size: 0.78rem;
+              color: var(--color-text-secondary);
+              margin-bottom: 0.8rem;
+            "
+          >
+            <span>₹7.65L raised</span><span>51% of ₹15L</span>
+          </div>
+          <button class="big-btn" style="padding: 0.6rem" onclick="openModal()">
+            Donate to this →
+          </button>
         </div>
       </div>
-      <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden">
-        <div style="background:linear-gradient(135deg,#2a1a0a,#4a2e1a);padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:center">
-          <span style="color:#EF9F27;font-size:12px;font-weight:500">Food Security</span>
-          <span style="background:rgba(186,117,23,0.3);color:#EF9F27;font-size:10px;padding:2px 8px;border-radius:10px">Active</span>
+      <div
+        style="
+          background: var(--color-background-primary);
+          border: 0.5px solid var(--color-border-tertiary);
+          border-radius: var(--border-radius-lg);
+          overflow: hidden;
+        "
+      >
+        <div
+          style="
+            background: linear-gradient(135deg, #2a1a0a, #4a2e1a);
+            padding: 1rem 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <span style="color: #ef9f27; font-size: 12px; font-weight: 500"
+            >Food Security</span
+          >
+          <span
+            style="
+              background: rgba(186, 117, 23, 0.3);
+              color: #ef9f27;
+              font-size: 10px;
+              padding: 2px 8px;
+              border-radius: 10px;
+            "
+            >Active</span
+          >
         </div>
-        <div style="padding:1rem 1.2rem">
-          <h3 style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:0.3rem">No Child Hungry</h3>
-          <p style="font-size:0.8rem;color:var(--color-text-secondary);margin-bottom:0.8rem;line-height:1.6">Daily nutritious meals for 5,000 underprivileged children.</p>
-          <div class="prog-bar" style="margin-bottom:0.4rem"><div class="prog-fill" style="width:38%;background:linear-gradient(90deg,#BA7517,#EF9F27)"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:var(--color-text-secondary);margin-bottom:0.8rem"><span>₹5.7L raised</span><span>38% of ₹15L</span></div>
-          <button class="big-btn" style="padding:0.6rem" onclick="openModal()">Donate to this →</button>
+        <div style="padding: 1rem 1.2rem">
+          <h3
+            style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              font-size: 1rem;
+              margin-bottom: 0.3rem;
+            "
+          >
+            No Child Hungry
+          </h3>
+          <p
+            style="
+              font-size: 0.8rem;
+              color: var(--color-text-secondary);
+              margin-bottom: 0.8rem;
+              line-height: 1.6;
+            "
+          >
+            Daily nutritious meals for 5,000 underprivileged children.
+          </p>
+          <div class="prog-bar" style="margin-bottom: 0.4rem">
+            <div
+              class="prog-fill"
+              style="
+                width: 38%;
+                background: linear-gradient(90deg, #ba7517, #ef9f27);
+              "
+            ></div>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              font-size: 0.78rem;
+              color: var(--color-text-secondary);
+              margin-bottom: 0.8rem;
+            "
+          >
+            <span>₹5.7L raised</span><span>38% of ₹15L</span>
+          </div>
+          <button class="big-btn" style="padding: 0.6rem" onclick="openModal()">
+            Donate to this →
+          </button>
         </div>
       </div>
     </div>
@@ -247,20 +1071,84 @@ body{font-family:'DM Sans',sans-serif;color:var(--color-text-primary);background
 <div class="page" id="page-about">
   <div class="section">
     <div class="sec-title">Our mission</div>
-    <div class="mission-box"><p>HopeForward was founded in 2019 with one belief: every child in India deserves clean water, food, and education — regardless of where they were born. We operate with 94% fund efficiency, meaning nearly every rupee you donate reaches the field directly.</p></div>
+    <div class="mission-box">
+      <h4>Who We Are</h4>
+      <p>
+        HopeForward was founded in 2019 with one belief: every child in India
+        deserves clean water, food, and education — regardless of where they
+        were born.
+      </p>
+      <h4>Our Impact</h4>
+      <p>
+        We operate with 94% fund efficiency, meaning nearly every rupee you
+        donate reaches the field directly.
+      </p>
+    </div>
     <div class="sec-title">Our team</div>
     <div class="team-grid">
-      <div class="team-card"><div class="team-avatar">AK</div><div class="team-name">Anjali Kumar</div><div class="team-role">Founder & CEO</div></div>
-      <div class="team-card"><div class="team-avatar">RS</div><div class="team-name">Rohit Sharma</div><div class="team-role">Operations Head</div></div>
-      <div class="team-card"><div class="team-avatar">PM</div><div class="team-name">Priya Mehta</div><div class="team-role">Finance Lead</div></div>
-      <div class="team-card"><div class="team-avatar">VN</div><div class="team-name">Vikram Nair</div><div class="team-role">Field Director</div></div>
+      <div class="team-card">
+        <div class="team-avatar">AK</div>
+        <div class="team-name">Anjali Kumar</div>
+        <div class="team-role">Founder & CEO</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">RS</div>
+        <div class="team-name">Rohit Sharma</div>
+        <div class="team-role">Operations Head</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">PM</div>
+        <div class="team-name">Priya Mehta</div>
+        <div class="team-role">Finance Lead</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">VN</div>
+        <div class="team-name">Vikram Nair</div>
+        <div class="team-role">Field Director</div>
+      </div>
     </div>
     <div class="sec-title">FAQ</div>
     <div id="faqList">
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(0)">Is my donation tax deductible? <span class="faq-arrow" id="fa0">▼</span></div><div class="faq-a" id="faq0">Yes. All donations are eligible for 80G tax deduction under the Income Tax Act. You will receive a certificate via email within 7 working days.</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(1)">How is my money used? <span class="faq-arrow" id="fa1">▼</span></div><div class="faq-a" id="faq1">94% goes directly to field operations. 6% covers platform and operational costs. We publish quarterly impact reports on our website.</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(2)">Can I cancel a recurring donation? <span class="faq-arrow" id="fa2">▼</span></div><div class="faq-a" id="faq2">Yes, you can cancel any time by contacting us on WhatsApp or email. No questions asked.</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(3)">Is my payment information secure? <span class="faq-arrow" id="fa3">▼</span></div><div class="faq-a" id="faq3">All payments are processed via Razorpay with 256-bit SSL encryption. We never store your card details.</div></div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(0)">
+          Is my donation tax deductible?
+          <span class="faq-arrow" id="fa0">▼</span>
+        </div>
+        <div class="faq-a" id="faq0">
+          Yes. All donations are eligible for 80G tax deduction under the Income
+          Tax Act. You will receive a certificate via email within 7 working
+          days.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(1)">
+          How is my money used? <span class="faq-arrow" id="fa1">▼</span>
+        </div>
+        <div class="faq-a" id="faq1">
+          94% goes directly to field operations. 6% covers platform and
+          operational costs. We publish quarterly impact reports on our website.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(2)">
+          Can I cancel a recurring donation?
+          <span class="faq-arrow" id="fa2">▼</span>
+        </div>
+        <div class="faq-a" id="faq2">
+          Yes, you can cancel any time by contacting us on WhatsApp or email. No
+          questions asked.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(3)">
+          Is my payment information secure?
+          <span class="faq-arrow" id="fa3">▼</span>
+        </div>
+        <div class="faq-a" id="faq3">
+          All payments are processed via Razorpay with 256-bit SSL encryption.
+          We never store your card details.
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -270,18 +1158,88 @@ body{font-family:'DM Sans',sans-serif;color:var(--color-text-primary);background
   <div class="section">
     <div class="sec-title">Get in touch</div>
     <div class="contact-grid">
-      <div class="contact-card"><div class="contact-icon">📧</div><h3>Email</h3><p style="color:#1D9E75">hello@hopeforward.org</p></div>
-      <div class="contact-card"><div class="contact-icon">💬</div><h3>WhatsApp</h3><p style="color:#1D9E75">+91 98765 00000</p></div>
-      <div class="contact-card"><div class="contact-icon">📍</div><h3>Office</h3><p>12, Lodhi Road, New Delhi – 110003</p></div>
-      <div class="contact-card"><div class="contact-icon">🕐</div><h3>Hours</h3><p>Mon–Sat, 9am – 6pm IST</p></div>
+      <div class="contact-card">
+        <div class="contact-icon">📧</div>
+        <h3>Email</h3>
+        <p style="color: #1d9e75">hello@hopeforward.org</p>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">💬</div>
+        <h3>WhatsApp</h3>
+        <p style="color: #1d9e75">+91 98765 00000</p>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <h3>Office</h3>
+        <p>12, Lodhi Road, New Delhi – 110003</p>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">🕐</div>
+        <h3>Hours</h3>
+        <p>Mon–Sat, 9am – 6pm IST</p>
+      </div>
     </div>
     <div class="sec-title">Send a message</div>
-    <div style="display:flex;flex-direction:column;gap:0.6rem">
-      <input type="text" id="cName" placeholder="Your name" style="padding:0.6rem 0.8rem;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-primary);font-size:0.88rem;font-family:'DM Sans',sans-serif">
-      <input type="email" id="cEmail" placeholder="Your email" style="padding:0.6rem 0.8rem;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-primary);font-size:0.88rem;font-family:'DM Sans',sans-serif">
-      <textarea id="cMsg" placeholder="Your message" rows="4" style="padding:0.6rem 0.8rem;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-primary);font-size:0.88rem;font-family:'DM Sans',sans-serif;resize:vertical"></textarea>
-      <div id="cErr" style="font-size:0.78rem;color:#E24B4A;display:none">Please fill in all fields.</div>
-      <div id="cSuccess" style="font-size:0.82rem;color:#3B6D11;background:#EAF3DE;padding:0.6rem 0.8rem;border-radius:var(--border-radius-md);display:none">Message sent! We'll reply within 24 hours.</div>
+    <div style="display: flex; flex-direction: column; gap: 0.6rem">
+      <input
+        type="text"
+        id="cName"
+        placeholder="Your name"
+        style="
+          padding: 0.6rem 0.8rem;
+          border-radius: var(--border-radius-md);
+          border: 0.5px solid var(--color-border-tertiary);
+          background: var(--color-background-secondary);
+          color: var(--color-text-primary);
+          font-size: 0.88rem;
+          font-family: &quot;DM Sans&quot;, sans-serif;
+        "
+      />
+      <input
+        type="email"
+        id="cEmail"
+        placeholder="Your email"
+        style="
+          padding: 0.6rem 0.8rem;
+          border-radius: var(--border-radius-md);
+          border: 0.5px solid var(--color-border-tertiary);
+          background: var(--color-background-secondary);
+          color: var(--color-text-primary);
+          font-size: 0.88rem;
+          font-family: &quot;DM Sans&quot;, sans-serif;
+        "
+      />
+      <textarea
+        id="cMsg"
+        placeholder="Your message"
+        rows="4"
+        style="
+          padding: 0.6rem 0.8rem;
+          border-radius: var(--border-radius-md);
+          border: 0.5px solid var(--color-border-tertiary);
+          background: var(--color-background-secondary);
+          color: var(--color-text-primary);
+          font-size: 0.88rem;
+          font-family: &quot;DM Sans&quot;, sans-serif;
+          resize: vertical;
+        "
+      ></textarea>
+      <div id="cErr" style="font-size: 0.78rem; color: #e24b4a; display: none">
+        Please fill in all fields.
+      </div>
+      <div
+        id="cSuccess"
+        style="
+          font-size: 0.82rem;
+          color: #3b6d11;
+          background: #eaf3de;
+          padding: 0.6rem 0.8rem;
+          border-radius: var(--border-radius-md);
+          display: none;
+        "
+      >
+        Message sent! We'll reply within 24 hours.
+      </div>
       <button class="big-btn" onclick="sendContact()">Send message →</button>
     </div>
   </div>
@@ -291,32 +1249,49 @@ body{font-family:'DM Sans',sans-serif;color:var(--color-text-primary);background
 <div class="modal-bg" id="modalBg">
   <div class="modal">
     <h2>Complete donation</h2>
-    <p class="sub">Amount: <strong id="displayAmt">₹500</strong> — Instant WhatsApp + email receipt.</p>
+    <p class="sub">
+      Amount: <strong id="displayAmt">₹500</strong> — Instant WhatsApp + email
+      receipt.
+    </p>
     <label>Full name *</label>
-    <input type="text" id="mName" placeholder="Mohit Tiwari">
+    <input type="text" id="mName" placeholder="Mohit Tiwari" />
     <div class="err-msg" id="e-mName">Name is required</div>
     <label>Email address *</label>
-    <input type="email" id="mEmail" placeholder="you@example.com">
+    <input type="email" id="mEmail" placeholder="you@example.com" />
     <div class="err-msg" id="e-mEmail">Valid email is required</div>
     <label>WhatsApp number *</label>
-    <input type="tel" id="mPhone" placeholder="+91 98765 43210">
+    <input type="tel" id="mPhone" placeholder="+91 98765 43210" />
     <div class="err-msg" id="e-mPhone">Phone number is required</div>
     <label>Card number *</label>
-    <input type="text" id="mCard" placeholder="4242 4242 4242 4242" maxlength="19" oninput="formatCard(this)">
+    <input
+      type="text"
+      id="mCard"
+      placeholder="4242 4242 4242 4242"
+      maxlength="19"
+      oninput="formatCard(this)"
+    />
     <div class="err-msg" id="e-mCard">Valid 16-digit card number required</div>
     <div class="card-row">
       <div>
         <label>Expiry *</label>
-        <input type="text" id="mExpiry" placeholder="MM / YY" maxlength="7" oninput="formatExpiry(this)">
+        <input
+          type="text"
+          id="mExpiry"
+          placeholder="MM / YY"
+          maxlength="7"
+          oninput="formatExpiry(this)"
+        />
         <div class="err-msg" id="e-mExpiry">Required</div>
       </div>
       <div>
         <label>CVV *</label>
-        <input type="text" id="mCvv" placeholder="•••" maxlength="3">
+        <input type="text" id="mCvv" placeholder="•••" maxlength="3" />
         <div class="err-msg" id="e-mCvv">Required</div>
       </div>
     </div>
-    <button class="pay-btn" onclick="submitPayment()">Pay <span id="payAmt">₹500</span> securely</button>
+    <button class="pay-btn" onclick="submitPayment()">
+      Pay <span id="payAmt">₹500</span> securely
+    </button>
     <button class="cancel-btn" onclick="closeModal()">Cancel</button>
   </div>
 </div>
@@ -325,208 +1300,308 @@ body{font-family:'DM Sans',sans-serif;color:var(--color-text-primary);background
 <div class="thankyou" id="thankYou">
   <div class="check-circle">✓</div>
   <h2>Thank you!</h2>
-  <p>Your donation of <strong id="confirmedAmt">₹500</strong> is confirmed. You're now part of a movement changing lives.</p>
-  <p style="font-size:0.8rem;color:var(--color-text-secondary)">Mailchimp confirmation sent to your email. Check WhatsApp for your instant receipt.</p>
-  <div class="wa-note">WhatsApp: "Hi! Your donation is confirmed. You're amazing. 🙏 — HopeForward"</div>
+  <p>
+    Your donation of <strong id="confirmedAmt">₹500</strong> is confirmed.
+    You're now part of a movement changing lives.
+  </p>
+  <p style="font-size: 0.8rem; color: var(--color-text-secondary)">
+    Mailchimp confirmation sent to your email. Check WhatsApp for your instant
+    receipt.
+  </p>
+  <div class="wa-note">
+    WhatsApp: "Hi! Your donation is confirmed. You're amazing. 🙏 — HopeForward"
+  </div>
   <button class="back-btn" onclick="goBack()">← Back to home</button>
 </div>
 
 <script>
-let selectedAmt=500;
-let totalRaised=3120000;
-let totalDonors=4820;
-const goal=5000000;
+  let selectedAmt = 500;
+  let totalRaised = 3120000;
+  let totalDonors = 4820;
+  const goal = 5000000;
 
-const donorNames=["Rahul M.","Priya S.","Amit K.","Sneha R.","Vikram T.","Divya N.","Arjun P.","Meera J.","Karan L.","Sunita B.","Ravi D.","Pooja G.","Nikhil V.","Asha W.","Deepak C."];
-const donorAmts=[300,500,1000,2500,5000,750,1500,200,3000,400];
-let donorList=[];
+  const donorNames = [
+    "Rahul M.",
+    "Priya S.",
+    "Amit K.",
+    "Sneha R.",
+    "Vikram T.",
+    "Divya N.",
+    "Arjun P.",
+    "Meera J.",
+    "Karan L.",
+    "Sunita B.",
+    "Ravi D.",
+    "Pooja G.",
+    "Nikhil V.",
+    "Asha W.",
+    "Deepak C.",
+  ];
+  const donorAmts = [300, 500, 1000, 2500, 5000, 750, 1500, 200, 3000, 400];
+  let donorList = [];
 
-function getRandDonor(){
-  const name=donorNames[Math.floor(Math.random()*donorNames.length)];
-  const amt=donorAmts[Math.floor(Math.random()*donorAmts.length)];
-  const mins=Math.floor(Math.random()*59)+1;
-  return{name,amt,mins,initials:name.split(' ').map(w=>w[0]).join('')};
-}
+  function getRandDonor() {
+    const name = donorNames[Math.floor(Math.random() * donorNames.length)];
+    const amt = donorAmts[Math.floor(Math.random() * donorAmts.length)];
+    const mins = Math.floor(Math.random() * 59) + 1;
+    return {
+      name,
+      amt,
+      mins,
+      initials: name
+        .split(" ")
+        .map((w) => w[0])
+        .join(""),
+    };
+  }
 
-function initDonors(){
-  for(let i=0;i<8;i++) donorList.push(getRandDonor());
-  renderDonors();
-}
+  function initDonors() {
+    for (let i = 0; i < 8; i++) donorList.push(getRandDonor());
+    renderDonors();
+  }
 
-function renderDonors(){
-  const feed=document.getElementById('donorFeed');
-  if(!feed) return;
-  feed.innerHTML='';
-  donorList.slice(0,12).forEach(d=>{
-    const el=document.createElement('div');
-    el.className='donor-item';
-    el.innerHTML=`<div class="donor-avatar">${d.initials}</div><div class="donor-info"><div class="donor-name">${d.name}</div><div class="donor-time">${d.mins} min ago</div></div><div class="donor-amt">₹${d.amt.toLocaleString('en-IN')}</div>`;
-    feed.appendChild(el);
-  });
-}
+  function renderDonors() {
+    const feed = document.getElementById("donorFeed");
+    if (!feed) return;
+    feed.innerHTML = "";
+    donorList.slice(0, 12).forEach((d) => {
+      const el = document.createElement("div");
+      el.className = "donor-item";
+      el.innerHTML = `<div class="donor-avatar">${d.initials}</div><div class="donor-info"><div class="donor-name">${d.name}</div><div class="donor-time">${d.mins} min ago</div></div><div class="donor-amt">₹${d.amt.toLocaleString("en-IN")}</div>`;
+      feed.appendChild(el);
+    });
+  }
 
-function addLiveDonor(name,amt){
-  donorList.unshift({name,amt,mins:0,initials:name.split(' ').map(w=>w[0]).join('')});
-  renderDonors();
-}
+  function addLiveDonor(name, amt) {
+    donorList.unshift({
+      name,
+      amt,
+      mins: 0,
+      initials: name
+        .split(" ")
+        .map((w) => w[0])
+        .join(""),
+    });
+    renderDonors();
+  }
 
-setInterval(()=>{
-  const d=getRandDonor();
-  donorList.unshift(d);
-  totalRaised+=d.amt;
-  totalDonors++;
-  renderDonors();
-  animateCounters();
-},8000);
-
-function animateCounters(){
-  animateNum('raisedCount',totalRaised,'₹',true);
-  animateNum('donorCount',totalDonors,'',false);
-  const pct=Math.round((totalRaised/goal)*100);
-  animateNum('pctCount',pct,'','%');
-  const fill=document.getElementById('progFill');
-  if(fill) fill.style.width=Math.min(pct,100)+'%';
-  const pa=document.getElementById('progAmt');
-  if(pa) pa.textContent='₹'+totalRaised.toLocaleString('en-IN');
-  const pc=document.getElementById('progCaption');
-  if(pc) pc.textContent='₹'+totalRaised.toLocaleString('en-IN')+' raised of ₹50,00,000 — '+pct+'% complete';
-  const rc=document.getElementById('raisedCount');
-  if(rc) rc.textContent='₹'+(totalRaised>=100000?Math.round(totalRaised/100000)+'L':totalRaised.toLocaleString('en-IN'));
-  const dc=document.getElementById('donorCount');
-  if(dc) dc.textContent=totalDonors.toLocaleString('en-IN');
-  const ptc=document.getElementById('pctCount');
-  if(ptc) ptc.textContent=pct+'%';
-}
-
-function animateNum(id,target,pre,suf){
-  const el=document.getElementById(id);
-  if(!el) return;
-}
-
-function showPage(id,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  const pg=document.getElementById('page-'+id);
-  if(pg) pg.classList.add('active');
-  if(btn) btn.classList.add('active');
-  document.getElementById('thankYou').classList.remove('open');
-  if(id==='donors') renderDonors();
-}
-
-function selectAmt(btn,amt){
-  selectedAmt=amt;
-  document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('customAmt').value='';
-}
-
-function clearActive(){
-  document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('active'));
-  selectedAmt=parseInt(document.getElementById('customAmt').value)||500;
-}
-
-function openModal(){
-  const c=document.getElementById('customAmt');
-  if(c&&c.value) selectedAmt=parseInt(c.value)||500;
-  document.getElementById('displayAmt').textContent='₹'+selectedAmt.toLocaleString('en-IN');
-  document.getElementById('payAmt').textContent='₹'+selectedAmt.toLocaleString('en-IN');
-  clearErrors();
-  document.getElementById('modalBg').classList.add('open');
-}
-
-function closeModal(){document.getElementById('modalBg').classList.remove('open')}
-
-function clearErrors(){
-  ['mName','mEmail','mPhone','mCard','mExpiry','mCvv'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.classList.remove('err');
-    const em=document.getElementById('e-'+id);
-    if(em) em.classList.remove('show');
-  });
-}
-
-function setErr(id,msg){
-  const el=document.getElementById(id);
-  if(el) el.classList.add('err');
-  const em=document.getElementById('e-'+id);
-  if(em){em.textContent=msg;em.classList.add('show');}
-}
-
-function formatCard(inp){
-  let v=inp.value.replace(/\D/g,'').substring(0,16);
-  inp.value=v.replace(/(.{4})/g,'$1 ').trim();
-}
-
-function formatExpiry(inp){
-  let v=inp.value.replace(/\D/g,'');
-  if(v.length>=2) v=v.substring(0,2)+' / '+v.substring(2,4);
-  inp.value=v;
-}
-
-function validateEmail(e){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)}
-
-function submitPayment(){
-  clearErrors();
-  let valid=true;
-  const name=document.getElementById('mName').value.trim();
-  const email=document.getElementById('mEmail').value.trim();
-  const phone=document.getElementById('mPhone').value.trim();
-  const card=document.getElementById('mCard').value.replace(/\s/g,'');
-  const expiry=document.getElementById('mExpiry').value.trim();
-  const cvv=document.getElementById('mCvv').value.trim();
-
-  if(!name){setErr('mName','Name is required');valid=false;}
-  if(!validateEmail(email)){setErr('mEmail','Valid email is required');valid=false;}
-  if(phone.length<10){setErr('mPhone','Valid phone number required');valid=false;}
-  if(card.length<16){setErr('mCard','Enter a valid 16-digit card number');valid=false;}
-  if(expiry.length<7){setErr('mExpiry','Enter MM / YY');valid=false;}
-  if(cvv.length<3){setErr('mCvv','Enter 3-digit CVV');valid=false;}
-  if(!valid) return;
-
-  closeModal();
-  totalRaised+=selectedAmt;
-  totalDonors++;
-  animateCounters();
-  addLiveDonor(name,selectedAmt);
-  document.getElementById('confirmedAmt').textContent='₹'+selectedAmt.toLocaleString('en-IN');
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('thankYou').classList.add('open');
-}
-
-function goBack(){
-  document.getElementById('thankYou').classList.remove('open');
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelector('.nav-btn').classList.add('active');
-  document.getElementById('page-home').classList.add('active');
-}
-
-function toggleFaq(i){
-  const a=document.getElementById('faq'+i);
-  const ar=document.getElementById('fa'+i);
-  if(a.classList.contains('open')){a.classList.remove('open');ar.classList.remove('open');}
-  else{a.classList.add('open');ar.classList.add('open');}
-}
-
-function sendContact(){
-  const n=document.getElementById('cName').value.trim();
-  const e=document.getElementById('cEmail').value.trim();
-  const m=document.getElementById('cMsg').value.trim();
-  const err=document.getElementById('cErr');
-  const suc=document.getElementById('cSuccess');
-  if(!n||!e||!m){err.style.display='block';suc.style.display='none';return;}
-  err.style.display='none';
-  suc.style.display='block';
-  document.getElementById('cName').value='';
-  document.getElementById('cEmail').value='';
-  document.getElementById('cMsg').value='';
-}
-
-window.addEventListener('load',()=>{
-  initDonors();
-  setTimeout(()=>{
-    const fill=document.getElementById('progFill');
-    if(fill) fill.style.width='62%';
+  setInterval(() => {
+    const d = getRandDonor();
+    donorList.unshift(d);
+    totalRaised += d.amt;
+    totalDonors++;
+    renderDonors();
     animateCounters();
-  },300);
-});
+  }, 8000);
+
+  function animateCounters() {
+    animateNum("raisedCount", totalRaised, "₹", true);
+    animateNum("donorCount", totalDonors, "", false);
+    const pct = Math.round((totalRaised / goal) * 100);
+    animateNum("pctCount", pct, "", "%");
+    const fill = document.getElementById("progFill");
+    if (fill) fill.style.width = Math.min(pct, 100) + "%";
+    const pa = document.getElementById("progAmt");
+    if (pa) pa.textContent = "₹" + totalRaised.toLocaleString("en-IN");
+    const pc = document.getElementById("progCaption");
+    if (pc)
+      pc.textContent =
+        "₹" +
+        totalRaised.toLocaleString("en-IN") +
+        " raised of ₹50,00,000 — " +
+        pct +
+        "% complete";
+    const rc = document.getElementById("raisedCount");
+    if (rc)
+      rc.textContent =
+        "₹" +
+        (totalRaised >= 100000
+          ? Math.round(totalRaised / 100000) + "L"
+          : totalRaised.toLocaleString("en-IN"));
+    const dc = document.getElementById("donorCount");
+    if (dc) dc.textContent = totalDonors.toLocaleString("en-IN");
+    const ptc = document.getElementById("pctCount");
+    if (ptc) ptc.textContent = pct + "%";
+  }
+
+  function animateNum(id, target, pre, suf) {
+    const el = document.getElementById(id);
+    if (!el) return;
+  }
+
+  function showPage(id, btn) {
+    document
+      .querySelectorAll(".page")
+      .forEach((p) => p.classList.remove("active"));
+    document
+      .querySelectorAll(".nav-btn")
+      .forEach((b) => b.classList.remove("active"));
+    const pg = document.getElementById("page-" + id);
+    if (pg) pg.classList.add("active");
+    if (btn) btn.classList.add("active");
+    document.getElementById("thankYou").classList.remove("open");
+    if (id === "donors") renderDonors();
+  }
+
+  function selectAmt(btn, amt) {
+    selectedAmt = amt;
+    document
+      .querySelectorAll(".amt-btn")
+      .forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("customAmt").value = "";
+  }
+
+  function clearActive() {
+    document
+      .querySelectorAll(".amt-btn")
+      .forEach((b) => b.classList.remove("active"));
+    selectedAmt = parseInt(document.getElementById("customAmt").value) || 500;
+  }
+
+  function openModal() {
+    const c = document.getElementById("customAmt");
+    if (c && c.value) selectedAmt = parseInt(c.value) || 500;
+    document.getElementById("displayAmt").textContent =
+      "₹" + selectedAmt.toLocaleString("en-IN");
+    document.getElementById("payAmt").textContent =
+      "₹" + selectedAmt.toLocaleString("en-IN");
+    clearErrors();
+    document.getElementById("modalBg").classList.add("open");
+  }
+
+  function closeModal() {
+    document.getElementById("modalBg").classList.remove("open");
+  }
+
+  function clearErrors() {
+    ["mName", "mEmail", "mPhone", "mCard", "mExpiry", "mCvv"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove("err");
+      const em = document.getElementById("e-" + id);
+      if (em) em.classList.remove("show");
+    });
+  }
+
+  function setErr(id, msg) {
+    const el = document.getElementById(id);
+    if (el) el.classList.add("err");
+    const em = document.getElementById("e-" + id);
+    if (em) {
+      em.textContent = msg;
+      em.classList.add("show");
+    }
+  }
+
+  function formatCard(inp) {
+    let v = inp.value.replace(/\D/g, "").substring(0, 16);
+    inp.value = v.replace(/(.{4})/g, "$1 ").trim();
+  }
+
+  function formatExpiry(inp) {
+    let v = inp.value.replace(/\D/g, "");
+    if (v.length >= 2) v = v.substring(0, 2) + " / " + v.substring(2, 4);
+    inp.value = v;
+  }
+
+  function validateEmail(e) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+  }
+
+  function submitPayment() {
+    clearErrors();
+    let valid = true;
+    const name = document.getElementById("mName").value.trim();
+    const email = document.getElementById("mEmail").value.trim();
+    const phone = document.getElementById("mPhone").value.trim();
+    const card = document.getElementById("mCard").value.replace(/\s/g, "");
+    const expiry = document.getElementById("mExpiry").value.trim();
+    const cvv = document.getElementById("mCvv").value.trim();
+
+    if (!name) {
+      setErr("mName", "Name is required");
+      valid = false;
+    }
+    if (!validateEmail(email)) {
+      setErr("mEmail", "Valid email is required");
+      valid = false;
+    }
+    if (phone.length < 10) {
+      setErr("mPhone", "Valid phone number required");
+      valid = false;
+    }
+    if (card.length < 16) {
+      setErr("mCard", "Enter a valid 16-digit card number");
+      valid = false;
+    }
+    if (expiry.length < 7) {
+      setErr("mExpiry", "Enter MM / YY");
+      valid = false;
+    }
+    if (cvv.length < 3) {
+      setErr("mCvv", "Enter 3-digit CVV");
+      valid = false;
+    }
+    if (!valid) return;
+
+    closeModal();
+    totalRaised += selectedAmt;
+    totalDonors++;
+    animateCounters();
+    addLiveDonor(name, selectedAmt);
+    document.getElementById("confirmedAmt").textContent =
+      "₹" + selectedAmt.toLocaleString("en-IN");
+    document
+      .querySelectorAll(".page")
+      .forEach((p) => p.classList.remove("active"));
+    document.getElementById("thankYou").classList.add("open");
+  }
+
+  function goBack() {
+    document.getElementById("thankYou").classList.remove("open");
+    document
+      .querySelectorAll(".nav-btn")
+      .forEach((b) => b.classList.remove("active"));
+    document.querySelector(".nav-btn").classList.add("active");
+    document.getElementById("page-home").classList.add("active");
+  }
+
+  function toggleFaq(i) {
+    const a = document.getElementById("faq" + i);
+    const ar = document.getElementById("fa" + i);
+    if (a.classList.contains("open")) {
+      a.classList.remove("open");
+      ar.classList.remove("open");
+    } else {
+      a.classList.add("open");
+      ar.classList.add("open");
+    }
+  }
+
+  function sendContact() {
+    const n = document.getElementById("cName").value.trim();
+    const e = document.getElementById("cEmail").value.trim();
+    const m = document.getElementById("cMsg").value.trim();
+    const err = document.getElementById("cErr");
+    const suc = document.getElementById("cSuccess");
+    if (!n || !e || !m) {
+      err.style.display = "block";
+      suc.style.display = "none";
+      return;
+    }
+    err.style.display = "none";
+    suc.style.display = "block";
+    document.getElementById("cName").value = "";
+    document.getElementById("cEmail").value = "";
+    document.getElementById("cMsg").value = "";
+  }
+
+  window.addEventListener("load", () => {
+    initDonors();
+    setTimeout(() => {
+      const fill = document.getElementById("progFill");
+      if (fill) fill.style.width = "62%";
+      animateCounters();
+    }, 300);
+  });
 </script>
